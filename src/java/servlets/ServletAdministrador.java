@@ -3,6 +3,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -18,19 +19,31 @@ public class ServletAdministrador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ServletContext  contexto = getServletContext();
+        ServletContext contexto = getServletContext();
         RequestDispatcher rd;
         
         try{
             String numero = request.getParameter("numero");
             String color = request.getParameter("color");
             int num = Integer.parseInt(numero);
-            if(num>=1 &&num <=9 && esValidoColor(color)){
-                
+            if(num>=1 && num <=9 && esValidoColor(color)){
+                contexto.setAttribute("numero_valido", numero);
+                contexto.setAttribute("color_valido", color);
+                rd=contexto.getRequestDispatcher("/ServletTabla");
+                rd.forward(request, response);
+            }else{
+                if(!esValidoColor(color)){
+                    rd=contexto.getRequestDispatcher("/ErrorColor.html");
+                    rd.forward(request, response);
+                }else{
+                    rd=contexto.getRequestDispatcher("/ErrorNumero.html");
+                    rd.forward(request, response);
+                }
             }
             
         }catch(NumberFormatException e){
-            
+            rd=contexto.getRequestDispatcher("/ErrorNumero.html");
+            rd.forward(request, response);
         }
     }
 

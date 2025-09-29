@@ -4,9 +4,17 @@
         <servlet-name>ServletAdministrador</servlet-name>
         <servlet-class>servlets.ServletAdministrador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletTabla</servlet-name>
+        <servlet-class>servlets.ServletTabla</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletAdministrador</servlet-name>
         <url-pattern>/ServletAdministrador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletTabla</servlet-name>
+        <url-pattern>/ServletTabla</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
